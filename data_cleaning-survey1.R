@@ -1,6 +1,7 @@
 #### Preamble ####
-# Purpose: Prepare and clean the survey data downloaded from Voter Study Group
-# - Link to Voter Study Group: https://www.voterstudygroup.org/publication/nationscape-data-set
+# Purpose: Prepare and clean the survey data downloaded from 
+# Democracy Fund + UCLA Nationscape
+# - Link to data set: https://www.voterstudygroup.org/publication/nationscape-data-set
 # Author: Pamela De Vera, Hyoeun Park
 # Data: 02 November 2020
 # Contact: pamela.devera@mail.utoronto.ca, hyoeun.park@mail.utoronto.ca

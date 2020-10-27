@@ -1,0 +1,9 @@
+---
+title: "Predicting 2020 American Federal Election"
+author: "Pamela De Vera, Hyoeun Park"
+date: "11/02/2020"
+output: pdf_document
+---
+```{r, echo=FALSE, message=FALSE}
+
+```

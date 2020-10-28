@@ -38,13 +38,12 @@ cleaned_data <-
 # Remove any Missing entries (i.e., NA's)
 cleaned_data <- na.omit(cleaned_data)
 
+# Change variable name from 'census_region' to 'region
+names(cleaned_data)[names(cleaned_data) == 'census_region'] <- 'region'
+
 # Change variable name from 'gender' to 'sex'
 ## - so that variable name is the same as census data
 names(cleaned_data)[names(cleaned_data) == 'gender'] <- 'sex'
-# Create new variable: is_male
-cleaned_data <- cleaned_data %>% 
-  mutate(is_male = 
-           ifelse(sex == "Male", 1, 0))
 
 # Binary Outcome for 'vote_2020'
 ## filter Donald Trump and Joe Biden only
@@ -63,7 +62,7 @@ cleaned_data <- cleaned_data %>%
 
 # Stratifying: Race Ethnicity into 5 categories
 cleaned_data <- cleaned_data %>% 
-  mutate(race_ethnicity_division =
+  mutate(race =
            ifelse(race_ethnicity == "White", 
                   "White", 
                   ifelse(race_ethnicity == "Black, or African American", 
@@ -72,7 +71,7 @@ cleaned_data <- cleaned_data %>%
                                 "Indigenous", 
                                 ifelse(race_ethnicity == "Some other race", 
                                        "Other", 
-                                       "Asian or Pacific Islander")))))
+                                       "Asian/Pacific Islander")))))
 
 # Stratifying: Education Levels
 cleaned_data <- cleaned_data %>%
@@ -82,13 +81,13 @@ cleaned_data <- cleaned_data %>%
                     education == "Completed some high school" | 
                     education == "High school graduate" | 
                     education == "Completed some college, but no degree", 
-                  "Primary/Secondary Education", 
+                  "Primary/Secondary", 
                   ifelse(education == "Other post high school vocational training" | 
                            education == "Associate Degree" | 
                            education == "College Degree (such as B.A., B.S.)" | 
                            education == "Completed some graduate, but no degree", 
-                         "Post Secondary training/degree", 
-                         "Master's/PhD Degree")))
+                         "Associate/Bachelor", 
+                         "Master/Doctorate")))
 
 # Stratifying: Income Class
 cleaned_data <- cleaned_data %>% 
@@ -108,7 +107,7 @@ cleaned_data <- cleaned_data %>%
                            household_income == "$40,000 to $44,999", "Low", 
                          "Middle")))
 
-# Age into 8 categories
+# Age
 cleaned_data <- cleaned_data %>% 
   mutate(age_group = ifelse(age >= 18 & age<=25, "18 to 25", 
                              ifelse(age >= 26 & age <= 35, "26 to 35",

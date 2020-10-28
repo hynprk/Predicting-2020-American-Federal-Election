@@ -108,6 +108,17 @@ cleaned_data <- cleaned_data %>%
                            household_income == "$40,000 to $44,999", "Low", 
                          "Middle")))
 
+# Age into 8 categories
+cleaned_data <- cleaned_data %>% 
+  mutate(age_group = ifelse(age >= 18 & age<=25, "18 to 25", 
+                             ifelse(age >= 26 & age <= 35, "26 to 35",
+                                    ifelse(age >= 36 & age <= 45, "36 to 45", 
+                                           ifelse(age >= 46 & age <= 55, "46 to 55", 
+                                                  ifelse(age >= 56 & age <= 65, "56 to 65", 
+                                                         ifelse(age >= 66 & age <= 75, "66 to 75", 
+                                                                ifelse(age >= 76 & age <= 85, "76 to 85",
+                                                                       "86 to 95"))))))))
+
 # Saving the survey/sample data as a csv file in my
 # working directory
 write_csv(cleaned_data, "election_data/output/survey_data.csv")

@@ -18,7 +18,7 @@ library(haven)
 library(tidyverse)
 # setwd("~/Desktop/STA304/Problem Set 3")
 # Read in the raw data
-raw_data <- read_dta("election_data/survey/ns20200625.dta")
+raw_data <- read_dta("inputs/ns20200625/ns20200625.dta")
 # Add the labels
 raw_data <- labelled::to_factor(raw_data)
 
@@ -120,4 +120,4 @@ cleaned_data <- cleaned_data %>%
 
 # Saving the survey/sample data as a csv file in my
 # working directory
-write_csv(cleaned_data, "election_data/output/survey_data.csv")
+write_csv(cleaned_data, "outputs/survey_data.csv")

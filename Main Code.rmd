@@ -7,4 +7,20 @@ output: pdf_document
 ```{r, echo=FALSE, message=FALSE}
 # This is where all the main codes go
 
+# Model
+# Frequentist Multilevel Logistic Regression Model
+## Random Intercept Model
+poll_model <- glmer(as.factor(vote_biden) ~ sex + age_group + race + is_hispanic + education_level + income_class + (1 | region), family = binomial, data = cleaned_data)
+summary(poll_model)
+ranef(poll_model) # Coefficients of slope $\beta_{0j}$
+
+# Diagnostics
+## Binned Residual Plot
+binnedplot(fitted(poll_model), 
+           residuals(poll_model, type = "response"), 
+           xlab = "Expected Values", 
+           ylab = "Average residual", 
+           main = "Binned Residual Plot",
+           sub = "Figure 1")
+
 ```

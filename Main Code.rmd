@@ -66,14 +66,36 @@ binnedplot(fitted(poll_model),
 estimates <- coef(poll_model)[1]
 
 ## Creating data frame for table
-regoutput <- tibble(coefficients = c("Intercept ($\\hat{r_{00}}$)", "Northwest", "Midwest", "South", "West", "26-35", "36-45", "46-55", "56-65", "66-75", "76-85", "86-95", "Male", "Black", "Indigenous", "Other", "White", "Hispanic", "Master/Doctorate", "Primary/Secondary", "Low Income", "Middle Income"), estimates = c(1.1771, 0.1307, 0.05331, -0.2650, 0.0810, -0.4538, -0.5776, -0.8187, -0.5443, -0.4893, -0.7497, -0.9717, -0.4107, 1.3902, -0.9658, -0.2644, -0.7944, 0.3786, 0.0305, -0.3163, 0.4211, 0.2911))
+regoutput <- tibble(coefficients = c("Intercept ($\\hat{r_{00}}$)", "Northwest", "Midwest", "South", "West", 
+"26-35", "36-45", "46-55", "56-65", "66-75", "76-85", "86-95", 
+"Male", 
+"Black", "Indigenous", "Other", "White", 
+"Hispanic", 
+"Master/Doctorate", "Primary/Secondary", 
+"Low Income", "Middle Income"), 
+estimates = c(1.1771, 0.1307, 0.05331, -0.2650, 0.0810, 
+-0.4538, -0.5776, -0.8187, -0.5443, -0.4893, -0.7497, -0.9717, 
+-0.4107, 
+1.3902, -0.9658, -0.2644, -0.7944, 
+0.3786, 
+0.0305, -0.3163, 
+0.4211, 0.2911))
 
 
 ## Create Table 1
-table1 <- kable(regoutput, caption = "Model Summary", col.names = c("Coefficients", "Estimates"), format = 'latex', escape = FALSE) %>% pack_rows("Intercept", 1, 5) %>% pack_rows("Age Group", 6, 12) %>% pack_rows("Sex", 13, 13) %>% pack_rows("Race", 14, 17) %>% pack_rows("Hispanic", 18, 18) %>% pack_rows("Education Level", 19, 20) %>% pack_rows("Income Level", 21, 22) %>% row_spec(0, bold = TRUE) %>% kable_classic_2(full_width = F)
+table1 <- kable(regoutput, caption = "Model Summary", 
+col.names = c("Coefficients", "Estimates"), 
+format = 'latex', escape = FALSE) %>% 
+pack_rows("Intercept", 1, 5) %>% 
+pack_rows("Age Group", 6, 12) %>% 
+pack_rows("Sex", 13, 13) %>% 
+pack_rows("Race", 14, 17) %>% 
+pack_rows("Hispanic", 18, 18) %>% 
+pack_rows("Education Level", 19, 20) %>% 
+pack_rows("Income Level", 21, 22) %>% 
+row_spec(0, bold = TRUE) %>% 
+kable_classic_2(full_width = F)
 
 ## See Table 1
 table1
-
-
 ```

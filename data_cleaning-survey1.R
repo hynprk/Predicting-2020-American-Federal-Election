@@ -16,7 +16,7 @@
 #### Workspace setup ####
 library(haven)
 library(tidyverse)
-# setwd("~/Desktop/STA304/Problem Set 3")
+# setwd("~/Desktop/STA304/Problem Set 3/election_data")
 # Read in the raw data
 raw_data <- read_dta("inputs/ns20200625/ns20200625.dta")
 # Add the labels

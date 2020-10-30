@@ -9,7 +9,7 @@
 # Pre-requisites: 
 # - Need to have downloaded the data 
 # from https://www.voterstudygroup.org/publication/nationscape-data-set 
-# and save the folder that you're interested in to election_data/survey 
+# and save the folder that you're interested in to inputs
 # - Don't forget to gitignore it!
 
 

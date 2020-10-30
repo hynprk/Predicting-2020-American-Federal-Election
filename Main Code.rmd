@@ -7,10 +7,40 @@ output: pdf_document
 ```{r, echo=FALSE, message=FALSE}
 # This is where all the main codes go
 
+################################################################################
+
+# Install any of the packages below if uninstalled:
+## install.packages("tidyverse")
+## install.packages("lme4")
+## install.packages("arm")
+## install.packages("knitr")
+## install.packages("kableExtra")
+## install.packages("readr")
+
+# Libraries
+library(tidyverse)
+library(lme4)
+library(arm)
+library(knitr)
+library(readr)
+library(kableExtra)
+
+# Set working directory
+## You may want to change this if you wish
+setwd("~/Desktop/STA304/Problem Set 3/election_data")
+
+# Loading in the cleaned survey Data
+survey_data <- read_csv("~/outputs/survey_data.csv")
+
+# Loading in the cleaned census Data
+census_data <- read_csv("~/outputs/census_data.csv")
+
+################################################################################
+
 # Model
 # Frequentist Multilevel Logistic Regression Model
 ## Random Intercept Model
-poll_model <- glmer(as.factor(vote_biden) ~ sex + age_group + race + is_hispanic + education_level + income_class + (1 | region), family = binomial, data = cleaned_data)
+poll_model <- glmer(as.factor(vote_biden) ~ sex + age_group + race + is_hispanic + education_level + income_class + (1 | region), family = binomial, data = survey_data)
 summary(poll_model)
 ranef(poll_model) # Coefficients of slope $\beta_{0j}$
 
@@ -22,5 +52,22 @@ binnedplot(fitted(poll_model),
            ylab = "Average residual", 
            main = "Binned Residual Plot",
            sub = "Figure 1")
+
+################################################################################
+
+# Table of Regression Outputs of the Model
+## See coefficient estimates for each variable
+estimates <- coef(poll_model)[1]
+
+## Creating data frame for table
+regoutput <- tibble(coefficients = c("Intercept ($\\hat{r_{00}}$)", "Northwest", "Midwest", "South", "West", "26-35", "36-45", "46-55", "56-65", "66-75", "76-85", "86-95", "Male", "Black", "Indigenous", "Other", "White", "Hispanic", "Master/Doctorate", "Primary/Secondary", "Low Income", "Middle Income"), estimates = c(1.1771, 0.1307, 0.05331, -0.2650, 0.0810, -0.4538, -0.5776, -0.8187, -0.5443, -0.4893, -0.7497, -0.9717, -0.4107, 1.3902, -0.9658, -0.2644, -0.7944, 0.3786, 0.0305, -0.3163, 0.4211, 0.2911))
+
+
+## Create Table 1
+table1 <- kable(regoutput, caption = "Model Summary", col.names = c("Coefficients", "Estimates"), format = 'latex', escape = FALSE) %>% pack_rows("Intercept", 1, 5) %>% pack_rows("Age Group", 6, 12) %>% pack_rows("Sex", 13, 13) %>% pack_rows("Race", 14, 17) %>% pack_rows("Hispanic", 18, 18) %>% pack_rows("Education Level", 19, 20) %>% pack_rows("Income Level", 21, 22) %>% row_spec(0, bold = TRUE) %>% kable_classic_2(full_width = F)
+
+## See Table 1
+table1
+
 
 ```

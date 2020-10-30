@@ -40,7 +40,13 @@ census_data <- read_csv("~/outputs/census_data.csv")
 # Model
 # Frequentist Multilevel Logistic Regression Model
 ## Random Intercept Model
-poll_model <- glmer(as.factor(vote_biden) ~ sex + age_group + race + is_hispanic + education_level + income_class + (1 | region), family = binomial, data = survey_data)
+poll_model <- glmer(as.factor(vote_biden) ~ sex + age_group + 
+race + is_hispanic + education_level + 
+income_class + (1 | region), 
+family = binomial, 
+data = survey_data)
+
+# See regression output
 summary(poll_model)
 ranef(poll_model) # Coefficients of slope $\beta_{0j}$
 

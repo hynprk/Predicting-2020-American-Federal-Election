@@ -5,39 +5,42 @@
 # Contact: pamela.devera@mail.utoronto.ca, hyoeun.park@mail.utoronto.ca
 # License: MIT
 # Pre-requisites: 
-# - Need to have downloaded the ACS data and saved it to inputs/data
-# - Don't forget to gitignore it!
+# - Need to have downloaded the IPUMS USA data and saved it to inputs
 
 
 #### Workspace setup ####
 library(haven)
 library(tidyverse)
 # Read in the raw data.
-setwd("C:/Users/Sammi-Jo/Desktop/PS3")
-raw_data <- read_dta("inputs/usa_00001.dta.gz")
+# setwd("~/Desktop/PS3")
+raw_data <- read_dta("inputs/usa_00002.dta.gz")
 
 
 # Add the labels
 raw_data <- labelled::to_factor(raw_data)
 
-# Just keep some variables that may be of interest (change 
-# this depending on your interests)
-reduced_data <- 
+# Selecting variables of interest
+reduced_data <-
   raw_data %>% 
-  select(region,
+  dplyr::select(region,
          sex, 
          age, 
          race, 
          hispan,
          citizen,
          educd,
-         ftotinc)
+         hhincome)
 
 # Filter out for respondents not eligible to vote since target is the voting population
 reduced_data <-
   reduced_data %>%
   filter(citizen != 'not a citizen') %>%
   mutate(citizen = 'citizen')
+
+# Change sex values to match survey data
+reduced_data <-
+  reduced_data %>%
+  mutate(sex = ifelse(sex == 'male','Male','Female'))
 
 # Convert age to integer values
 reduced_data <- 
@@ -52,18 +55,31 @@ reduced_data$age <- as.integer(reduced_data$age)
 reduced_data <-
   reduced_data %>%
   mutate(age = age - 1) %>%
-  filter(age >= 18)
+  filter(age >= 18) %>%
+  filter(age <=93)
 
+# Change age into age groups
+reduced_data <-
+  reduced_data %>%
+  mutate(age = case_when(
+    age %in% (18:25)~'18 to 25',
+    age %in% (26:35)~'26 to 35',
+    age %in% (36:45)~'36 to 45',
+    age %in% (46:55)~'46 to 55',
+    age %in% (56:65)~'56 to 65',
+    age %in% (66:75)~'66 to 75',
+    age %in% (76:85)~'76 to 85',
+    age %in% (86:95)~'86 to 95'))
 
 
 #Change region values to general region instead of divisions within region.
 reduced_data <-
   reduced_data %>%
   mutate(region = case_when(
-    region %in% c('new england division','middle atlantic division')~1, #Northeast
-    region %in% c('east north central div','west north central div')~2, #Midwest
-    region %in% c('south atlantic division','east south central div', 'west south central div')~3, #South
-    region %in% c('mountain division','pacific division')~4)) #West
+    region %in% c('new england division','middle atlantic division')~'Northeast', 
+    region %in% c('east north central div','west north central div')~'Midwest', 
+    region %in% c('south atlantic division','east south central div', 'west south central div')~'South', 
+    region %in% c('mountain division','pacific division')~'West'))
 
 
 #Change education values
@@ -82,47 +98,53 @@ reduced_data <-
     educd %in% c("master's degree","professional degree beyond a bachelor's degree",
                  'doctoral degree')~ 'Master/Doctorate'))
 
+
 #Filter n/a responses in education
 reduced_data <- na.omit(reduced_data)
 
-# Merge race category into 5 categories: white, black, indigenous peoples,
+# Merge race category into 5 categories: white, black, indigenous,
 # asian/pacific islander, other.
 reduced_data <-
   reduced_data %>%
     mutate(race = case_when(
     race == 'white'~'White',
     race == 'black/african american/negro'~'Black',
-    race == 'american indian or alaska native'~'Indigenous Peoples',
+    race == 'american indian or alaska native'~'Indigenous',
     race %in% c('chinese', 'japanese', 'other asian or pacific islander')~'Asian/Pacific Islander',
     race %in% c('other race, nec','two major races','three or more major races')~'Other'))
     
-# Merge hispan values into: hispanic and not hispanic
+# Merge hispan values into: hispanic (1) and not hispanic (0)
 reduced_data <-
   reduced_data %>%
-  mutate(hispan = ifelse(hispan == 'not hispanic','not hispanic','hispanic'))
+  mutate(hispan = ifelse(hispan == 'not hispanic',0,1))
 
 
 #Merge income based on socio-economic status: low, middle, and high
 reduced_data <-
   reduced_data %>%
-  mutate(ftotinc = ifelse(
-    ftotinc %in% (0:44999),"Low",
-    ifelse(ftotinc%in% (45000:124999),"Middle",
+  mutate(hhincome = ifelse(
+    hhincome %in% (0:44999),"Low",
+    ifelse(hhincome %in% (45000:124999),"Middle",
            "High")))
 
+# Change variable names to match survey data
+names(reduced_data)[names(reduced_data) == 'hhincome'] <- 'income_class'
+names(reduced_data)[names(reduced_data) == 'hispan'] <- 'is_hispanic'
+names(reduced_data)[names(reduced_data) == 'educd'] <- 'education_level'
+names(reduced_data)[names(reduced_data) == 'age'] <- 'age_group'
 
+# Count the observations in each cell sorted by age group, income class, region,
+# race, if hispanic, sex, and education level
 count_data <- 
   reduced_data %>%
   count(region,
         sex, 
-        age, 
+        age_group, 
         race, 
-        hispan,
-        educd,
-        ftotinc)
+        is_hispanic,
+        education_level,
+        income_class)
 
-# Saving the census data as a csv file in my
+# Saving the census data as a csv file in 
 # working directory
-write_csv(count_data, "outputs/census_data.csv")
-
-         
+write_csv(count_data, "outputs/census_data1.csv")

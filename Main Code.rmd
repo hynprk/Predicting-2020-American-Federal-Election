@@ -117,6 +117,8 @@ census_data$estimate <-
 census_data$proportion <-
   census_data$estimate*census_data$n
 
+# See post-stratification result
+# yhat := proportion of Americans voting for Joe Biden
 yhat = sum(census_data$proportion)/sum(census_data$n)
 
 ```

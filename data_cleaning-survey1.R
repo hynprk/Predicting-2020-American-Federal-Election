@@ -47,14 +47,21 @@ names(cleaned_data)[names(cleaned_data) == 'census_region'] <- 'region'
 names(cleaned_data)[names(cleaned_data) == 'gender'] <- 'sex'
 
 # Binary Outcome for 'vote_2020'
-## filter Donald Trump and Joe Biden only
+## filter out for people who are unsure of their vote
 cleaned_data <- cleaned_data %>%
-  filter(vote_2020 == "Donald Trump" | vote_2020 == "Joe Biden")
-## Create new variable
+  filter(vote_2020 == "Donald Trump" | vote_2020 == "Joe Biden" | vote_2020 == "Someone else" | vote_2020 == "I would not vote")
+
+## Create new variable for Biden
 cleaned_data<-
   cleaned_data %>%
   mutate(vote_biden = 
-           ifelse(vote_2020=="Joe Biden", 1, 0))
+           ifelse(vote_2020 == "Joe Biden", 1, 0))
+
+## Create new variable for Trump
+cleaned_data <-
+  cleaned_data %>%
+  mutate(vote_trump = 
+           ifelse(vote_2020 == "Donald Trump", 1, 0))
 
 # Binary outcome for Hispanic
 cleaned_data <- cleaned_data %>%

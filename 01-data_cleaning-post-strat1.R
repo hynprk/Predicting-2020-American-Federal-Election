@@ -147,4 +147,4 @@ count_data <-
 
 # Saving the census data as a csv file in 
 # working directory
-write_csv(count_data, "outputs/census_data1.csv")
+write_csv(count_data, "outputs/census_data.csv")

@@ -61,6 +61,8 @@ ranef(pollmodel_Biden) # Coefficients of slope $\beta_{0j}$
 summary(pollmodel_Trump)
 ranef(pollmodel_Trump)
 
+################################################################################
+
 # Diagnostics
 ## Binned Residual Plot for Biden
 binnedplot(fitted(pollmodel_Biden), 
@@ -80,32 +82,32 @@ binnedplot(fitted(pollmodel_Trump),
 
 ################################################################################
 
-# Table of Regression Outputs of the Model
-## See coefficient estimates for each variable
-estimates <- coef(poll_model)[1]
+# Table of Regression Outputs of Both Models
 
-## Creating data frame for table
-regoutput <- tibble(coefficients = c("Intercept ($\\hat{r_{00}}$)", "Northwest", "Midwest", "South", "West", 
+regoutput <- tibble(coefficients = c("Intercept", "Northwest", "Midwest", "South", "West", 
 "26-35", "36-45", "46-55", "56-65", "66-75", "76-85", "86-95", 
-"Male", 
-"Black", "Indigenous", "Other", "White", 
-"Hispanic", 
-"Master/Doctorate", "Primary/Secondary", 
-"Low Income", "Middle Income"), 
-estimates = c(1.1771, 0.1307, 0.05331, -0.2650, 0.0810, 
--0.4538, -0.5776, -0.8187, -0.5443, -0.4893, -0.7497, -0.9717, 
--0.4107, 
-1.3902, -0.9658, -0.2644, -0.7944, 
-0.3786, 
-0.0305, -0.3163, 
-0.4211, 0.2911))
+"Male", "Black", "Indigenous", "Other", "White", "Hispanic", 
+"Master/Doctorate", "Primary/Secondary", "Low Income", "Middle Income"), 
+b_estimates = c(0.5903, 0.0765, 0.0547, -0.2037, 0.0728, 
+-0.2000, -0.2318, -0.4453, -0.0936, -0.0553, -0.2780, -0.4227, 
+-0.3860, 0.8694, -0.9078, -0.2828, -0.5913, 0.3126, 
+0.0220, -0.3703, 0.2208, 0.2150), 
+b_pval = c("0.0009", "", "", "", "", 
+"2.47x10^(-11)", "0.0552", "0.0264", "7.13x10^(-5)", "0.3908", "0.6363", "0.1641", 
+"0.5569", "3.12x10^(-8)", "0.0011", "0.1065", "6.91x10^(-6)", "0.0007", 
+"0.8106", "9.97x10^(-9)", "0.0191", "0.0158"), 
+t_estimates = c(-1.2716, -0.1349, -0.0443, 0.2498, -0.0700, 0.4385, 
+0.5912, 0.7978, 0.6799, 0.6310, 0.9061, 1.2800, 
+0.3696, -1.3115, 0.7120, 0.2067, 0.7844, -0.3037, 
+0.0048, 0.1986, -0.5630, -0.3442), 
+t_pval = c("9.96x10^(-11)", "", "", "", "", 
+"5.36x10^(-10)", "0.0002", "2.52x10^(-7)", "4.43x10^(-11)", "9.25x10^(-9)", "5.36x10^(-7)", "8.41x10^(-6)", 
+"0.0741", "9.98x10^(-12)", "0.0104", "0.2843", "4.99x10^(-8)", "0.0018", 
+"0.9594", "0.0029", "4.42x10^(-9)", "0.0001"))
 
-
-## Create Table 1
 table1 <- kable(regoutput, caption = "Model Summary", 
-col.names = c("Coefficients", "Estimates"), 
-format = 'latex', escape = FALSE) %>% 
-pack_rows("Intercept", 1, 5) %>% 
+col.names = c("Coefficients", "Estimates", "P-values", "Estimates", "P-values")) %>% 
+pack_rows("Intercept: Region", 1, 5) %>% 
 pack_rows("Age Group", 6, 12) %>% 
 pack_rows("Sex", 13, 13) %>% 
 pack_rows("Race", 14, 17) %>% 
@@ -113,11 +115,11 @@ pack_rows("Hispanic", 18, 18) %>%
 pack_rows("Education Level", 19, 20) %>% 
 pack_rows("Income Level", 21, 22) %>% 
 row_spec(0, bold = TRUE) %>% 
-kable_classic_2(full_width = F)
+kable_classic_2(full_width = F) %>% 
+add_header_above(c(" " = 1, "Joe Biden" = 2, "Donald Trump" = 2))
 
 ## See Table 1
 table1
-
 ################################################################################
 
 # Post-stratification Calculation: Biden

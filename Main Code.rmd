@@ -39,25 +39,44 @@ census_data <- read_csv("~/outputs/census_data.csv")
 
 # Model
 # Frequentist Multilevel Logistic Regression Model
-## Random Intercept Model
-poll_model <- glmer(as.factor(vote_biden) ~ sex + age_group + 
+## Random Intercept Model for Biden
+pollmodel_Biden <- glmer(as.factor(vote_biden) ~ sex + age_group + 
 race + is_hispanic + education_level + 
 income_class + (1 | region), 
 family = binomial, 
 data = survey_data)
 
-# See regression output
-summary(poll_model)
-ranef(poll_model) # Coefficients of slope $\beta_{0j}$
+## Random Intercept Model for Trump
+pollmodel_Trump <- glmer(as.factor(vote_trump) ~ sex + age_group + 
+race + is_hispanic + education_level + 
+income_class + (1 | region), 
+family = binomial, 
+data = survey_data)
+
+# See regression output for Biden
+summary(pollmodel_Biden)
+ranef(pollmodel_Biden) # Coefficients of slope $\beta_{0j}$
+
+# See regression output for Trump
+summary(pollmodel_Trump)
+ranef(pollmodel_Trump)
 
 # Diagnostics
-## Binned Residual Plot
-binnedplot(fitted(poll_model), 
-           residuals(poll_model, type = "response"), 
+## Binned Residual Plot for Biden
+binnedplot(fitted(pollmodel_Biden), 
+           residuals(pollmodel_Biden, type = "response"), 
            xlab = "Expected Values", 
            ylab = "Average residual", 
-           main = "Binned Residual Plot",
+           main = "Biden: Binned Residual Plot",
            sub = "Figure 1")
+
+## Binned Residual Plot for Trump
+binnedplot(fitted(pollmodel_Trump), 
+           residuals(pollmodel_Trump, type = "response"), 
+           xlab = "Expected Values", 
+           ylab = "Average residual", 
+           main = "Trump: Binned Residual Plot",
+           sub = "Figure 2")
 
 ################################################################################
 
@@ -101,24 +120,46 @@ table1
 
 ################################################################################
 
-# Post-stratification Calculation
+# Post-stratification Calculation: Biden
 
-# Create a variable in the dataset for the log odds based on our model
-census_data$logodds_estimate <-
-  poll_model %>%
+## Create a variable in the dataset for the log odds based on our model
+census_data$logestimate_Biden <-
+  pollmodel_Biden %>%
   predict(newdata = census_data)
 
-# Create a variable in the dataset with the probabiity estimate that a cell will
-# vote for Biden
-census_data$estimate <-
-  exp(census_data$logodds_estimate)/(1+exp(census_data$logodds_estimate))
+## Create a variable in the dataset with the probabiity estimate that a cell will
+## vote for Biden
+census_data$estimate_Biden <-
+  exp(census_data$logestimate_Biden)/(1+exp(census_data$logestimate_Biden))
 
-# Post stratification calculation
-census_data$proportion <-
-  census_data$estimate*census_data$n
+## Post stratification calculation
+census_data$prop_Biden <-
+  census_data$estimate_Biden*census_data$n
 
-# See post-stratification result
-# yhat := proportion of Americans voting for Joe Biden
-yhat = sum(census_data$proportion)/sum(census_data$n)
+## See post-stratification result
+## yhat_Biden := proportion of Americans voting for Joe Biden
+yhat_Biden = sum(census_data$prop_Biden)/sum(census_data$n)
+
+
+
+# Post-stratification Calculation: Trump
+
+## Create a variable in the dataset for the log odds based on our model
+census_data$logestimate_Trump <-
+  pollmodel_Trump %>%
+  predict(newdata = census_data)
+
+## Create a variable in the dataset with the probabiity estimate that a cell will
+## vote for Trump
+census_data$estimate_Trump <-
+  exp(census_data$logestimate_Trump)/(1+exp(census_data$logestimate_Trump))
+
+## Post stratification calculation
+census_data$prop_Trump <-
+  census_data$estimate_Trump*census_data$n
+
+## See post-stratification result
+## yhat_Trump := proportion of Americans voting for Donald Trump
+yhat_Trump = sum(census_data$prop_Trump)/sum(census_data$n)
 
 ```

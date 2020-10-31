@@ -16,16 +16,17 @@
 #### Workspace setup ####
 library(haven)
 library(tidyverse)
+
 # setwd("~/Desktop/STA304/Problem Set 3/election_data")
 # Read in the raw data
-raw_data <- read_dta("inputs/ns20200625/ns20200625.dta")
+survey_raw_data <- read_dta("inputs/ns20200625/ns20200625.dta")
 # Add the labels
-raw_data <- labelled::to_factor(raw_data)
+survey_raw_data <- labelled::to_factor(survey_raw_data)
 
 ### Selecting specific variables only ###
 cleaned_data <- 
-  raw_data %>% 
-  select(vote_2020,
+  survey_raw_data %>% 
+  dplyr::select(vote_2020,
          gender,
          census_region,
          hispanic,

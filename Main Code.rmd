@@ -138,7 +138,7 @@ census_data$prop_Biden <-
 
 ## See post-stratification result
 ## yhat_Biden := proportion of Americans voting for Joe Biden
-yhat_Biden = sum(census_data$prop_Biden)/sum(census_data$n)
+yhat_Biden <- sum(census_data$prop_Biden)/sum(census_data$n)
 
 
 
@@ -160,6 +160,6 @@ census_data$prop_Trump <-
 
 ## See post-stratification result
 ## yhat_Trump := proportion of Americans voting for Donald Trump
-yhat_Trump = sum(census_data$prop_Trump)/sum(census_data$n)
+yhat_Trump <- sum(census_data$prop_Trump)/sum(census_data$n)
 
 ```

@@ -98,4 +98,25 @@ kable_classic_2(full_width = F)
 
 ## See Table 1
 table1
+
+################################################################################
+
+# Post-stratification Calculation
+
+# Create a variable in the dataset for the log odds based on our model
+census_data$logodds_estimate <-
+  poll_model %>%
+  predict(newdata = census_data)
+
+# Create a variable in the dataset with the probabiity estimate that a cell will
+# vote for Biden
+census_data$estimate <-
+  exp(census_data$logodds_estimate)/(1+exp(census_data$logodds_estimate))
+
+# Post stratification calculation
+census_data$proportion <-
+  census_data$estimate*census_data$n
+
+yhat = sum(census_data$proportion)/sum(census_data$n)
+
 ```

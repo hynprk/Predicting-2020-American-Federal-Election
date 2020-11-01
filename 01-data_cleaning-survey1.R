@@ -9,15 +9,16 @@
 # Pre-requisites: 
 # - Need to have downloaded the data 
 # from https://www.voterstudygroup.org/publication/nationscape-data-set 
-# and save the folder that you're interested in to inputs
-# - Don't forget to gitignore it!
+# - Also, make sure to save the downloaded folder into a folder called 'inputs'
+# In other words, you will need the survey data saved in a folder called 'inputs', 
+# and 'inputs' will need to be in your working directory
+# - Create a folder called 'outputs' in your working directory
 
 
 #### Workspace setup ####
 library(haven)
 library(tidyverse)
 
-# setwd("~/Desktop/STA304/Problem Set 3/election_data")
 # Read in the raw data
 survey_raw_data <- read_dta("inputs/ns20200625/ns20200625.dta")
 # Add the labels

@@ -4,11 +4,8 @@ author: "Pamela De Vera, Hyoeun Park"
 date: "11/02/2020"
 output: pdf_document
 ---
-```{r, echo=FALSE, message=FALSE}
-# This is where all the main codes go
 
-################################################################################
-
+```{r setup, echo=FALSE, message=FALSE, include = FALSE}
 # Install any of the packages below if uninstalled:
 ## install.packages("tidyverse")
 ## install.packages("lme4")
@@ -25,6 +22,10 @@ library(knitr)
 library(readr)
 library(kableExtra)
 
+knitr::opts_chunk$set(echo = FALSE, fig.align = 'center', message = FALSE)
+```
+
+```{r}
 # Set working directory
 ## You may want to change this if you wish
 setwd("~/Desktop/STA304/Problem Set 3/election_data")
@@ -142,7 +143,7 @@ census_data$prop_Biden <-
 ## yhat_Biden := proportion of Americans voting for Joe Biden
 yhat_Biden <- sum(census_data$prop_Biden)/sum(census_data$n)
 
-
+##########################################
 
 # Post-stratification Calculation: Trump
 
@@ -163,5 +164,4 @@ census_data$prop_Trump <-
 ## See post-stratification result
 ## yhat_Trump := proportion of Americans voting for Donald Trump
 yhat_Trump <- sum(census_data$prop_Trump)/sum(census_data$n)
-
 ```

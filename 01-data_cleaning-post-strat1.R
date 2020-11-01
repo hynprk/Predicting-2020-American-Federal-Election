@@ -13,7 +13,7 @@ library(haven)
 library(tidyverse)
 # Read in the raw data.
 # setwd("~/Desktop/PS3")
-raw_data <- read_dta("inputs/usa_00002.dta.gz")
+raw_data <- read_dta("inputs/usa_00001.dta.gz")
 
 
 # Add the labels

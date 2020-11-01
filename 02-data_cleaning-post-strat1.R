@@ -1,11 +1,16 @@
 #### Preamble ####
-# Purpose: Prepare and clean the census data downloaded from IPUMS USA, University of Minnesota, www.ipums.org.
+# Purpose: Prepare and clean the census data downloaded from 
+# IPUMS USA, University of Minnesota, https://usa.ipums.org/usa/
+# Please see Line 27 for the variables of interest
 # Author: Pamela De Vera, Hyoeun Park
 # Data: 22 October 2020
 # Contact: pamela.devera@mail.utoronto.ca, hyoeun.park@mail.utoronto.ca
 # License: MIT
 # Pre-requisites: 
-# - Need to have downloaded the IPUMS USA data and saved it to inputs
+# - Need to have downloaded the IPUMS USA data and saved it to a folder called 'inputs'
+# - Make sure 'inputs' is in your working directory
+# - Create a folder called 'outputs' too,
+# which is where you are going to save your csv file at the end
 
 
 #### Workspace setup ####

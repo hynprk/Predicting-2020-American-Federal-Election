@@ -45,8 +45,7 @@ reduced_data <-
 # Convert age to integer values
 reduced_data <- 
   reduced_data %>% 
-  filter(age != "less than 1 year old") %>%
-  filter(age != "90 (90+ in 1980 and 1990)")
+  filter(age != "less than 1 year old") 
 
 reduced_data$age <- as.integer(reduced_data$age)
 
@@ -56,7 +55,7 @@ reduced_data <-
   reduced_data %>%
   mutate(age = age - 1) %>%
   filter(age >= 18) %>%
-  filter(age <=93)
+  filter(age <=95)
 
 # Change age into age groups
 reduced_data <-

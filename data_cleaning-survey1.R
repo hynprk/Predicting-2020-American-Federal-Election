@@ -49,7 +49,7 @@ names(cleaned_data)[names(cleaned_data) == 'gender'] <- 'sex'
 # Binary Outcome for 'vote_2020'
 ## filter out for people who are unsure of their vote
 cleaned_data <- cleaned_data %>%
-  filter(vote_2020 == "Donald Trump" | vote_2020 == "Joe Biden" | vote_2020 == "Someone else" | vote_2020 == "I would not vote")
+  filter(vote_2020 == "Donald Trump" | vote_2020 == "Joe Biden" | vote_2020 == "Someone else")
 
 ## Create new variable for Biden
 cleaned_data<-

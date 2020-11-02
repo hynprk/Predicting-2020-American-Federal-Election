@@ -1,4 +1,4 @@
-# Predicting 2020 American Federal Election
+# Predicting Populate Vote of 2020 American Federal Election
 We employed multilevel logistic regression models with post-stratification to predict the overall popular vote of the 2020 American Federal Election. 
 
 For license reasons, we were unable to upload the data sets into this repository. 

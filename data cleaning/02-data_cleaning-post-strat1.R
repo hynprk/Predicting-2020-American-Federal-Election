@@ -1,7 +1,9 @@
 #### Preamble ####
 # Purpose: Prepare and clean the census data downloaded from 
 # IPUMS USA, University of Minnesota, https://usa.ipums.org/usa/
-# Please see Line 27 for the variables of interest
+# - Variables to extract from IPUMS USA: 
+# region,sex, age, race, hispan,citizen,educd,hhincome
+# - Dataset: 2018 acs
 # Author: Pamela De Vera, Hyoeun Park
 # Data: 22 October 2020
 # Contact: pamela.devera@mail.utoronto.ca, hyoeun.park@mail.utoronto.ca

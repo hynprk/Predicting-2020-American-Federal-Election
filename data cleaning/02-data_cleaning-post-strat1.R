@@ -13,11 +13,13 @@
 # which is where you are going to save your csv file at the end
 
 
+#### How to Set Working directory ####
+# Session > Set Working Directory > To Source File Location
+
 #### Workspace setup ####
 library(haven)
 library(tidyverse)
 # Read in the raw data.
-# setwd("~/Desktop/PS3")
 raw_data <- read_dta("inputs/usa_00001.dta.gz")
 
 

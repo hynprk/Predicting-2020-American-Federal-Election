@@ -21,8 +21,6 @@ library(haven)
 library(tidyverse)
 # Read in the raw data.
 raw_data <- read_dta("inputs/usa_00001.dta.gz")
-
-
 # Add the labels
 raw_data <- labelled::to_factor(raw_data)
 

@@ -15,6 +15,9 @@
 # - Create a folder called 'outputs' in your working directory
 
 
+#### How to Set Working directory ####
+# Session > Set Working Directory > To Source File Location
+
 #### Workspace setup ####
 library(haven)
 library(tidyverse)

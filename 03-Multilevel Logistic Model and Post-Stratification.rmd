@@ -12,14 +12,12 @@ output: pdf_document
 ## install.packages("arm")
 ## install.packages("knitr")
 ## install.packages("kableExtra")
-## install.packages("readr")
 
 # Libraries
 library(tidyverse)
 library(lme4)
 library(arm)
 library(knitr)
-library(readr)
 library(kableExtra)
 
 knitr::opts_chunk$set(echo = FALSE, fig.align = 'center', message = FALSE)

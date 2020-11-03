@@ -24,15 +24,14 @@ knitr::opts_chunk$set(echo = FALSE, fig.align = 'center', message = FALSE)
 ```
 
 ```{r}
-# Set working directory
-## You may want to change this if you wish
-setwd("~/Desktop/STA304/Problem Set 3/election_data")
+# Setting working directory
+## Session > Set Working Directory > To Source File Location
 
 # Loading in the cleaned survey Data
-survey_data <- read_csv("~/outputs/survey_data.csv")
+survey_data <- readr::read_csv("outputs/survey_data.csv")
 
 # Loading in the cleaned census Data
-census_data <- read_csv("~/outputs/census_data.csv")
+census_data <- readr::read_csv("outputs/census_data.csv")
 
 ################################################################################
 

@@ -37,7 +37,3 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
-
-# Data Cleaning R Scripts
-/data cleaning/01-data-cleaning-survey1.R
-/data cleaning/02-data-cleaning-post-strat1.R
